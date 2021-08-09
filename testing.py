@@ -13,6 +13,6 @@ def main(model: str, data: str, index_col: str or None = None):
 
 if __name__ == '__main__':
     main(
-        model='VisCV_v3.h5',
+        model='VisCV_v5.h5',
         data='daily__us__nasdaq_stocks.csv',
         index_col='<DATE>')

@@ -16,7 +16,12 @@ def main():
         tr_data = expand_dims(np.array(data[0]), axis=-1)
         tr_key = np.array(data[1])
         if tr_data.shape[0] > 0:
-            MODEL.fit(tr_data, tr_key, epochs=10, verbose=2)
+            MODEL.fit(
+                tr_data,
+                tr_key,
+                epochs=10,
+                verbose=1,
+                shuffle=True)
     MODEL.save(MODEL_NAME)
     print(f'{MODEL_NAME} SAVED!')
 
