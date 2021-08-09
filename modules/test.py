@@ -86,6 +86,7 @@ class Tester:
                 'Exact match rate': match/self.predictions[i_gm].shape[0],
                 'Gain/Loss match rate': (match+direction_match)/self.predictions[i_gm].shape[0],
                 'Random match rate': self.coin_test[2],
+                'Random direction match rate': self.coin_test[3]/self.coin_test[1],
                 'Random match test params': f'Matches ({self.coin_test[0]})/N({self.coin_test[1]})', }
 
     def overview(self):
@@ -109,6 +110,7 @@ class Tester:
         rand_ls_1 = np.random.randint(0, 8, n)
         rand_ls_2 = np.random.randint(0, 8, n)
         match = 0
+        direction = 0
         for r1, r2 in zip(rand_ls_1, rand_ls_2):
             if r1 == r2:
                 match += 1
@@ -116,4 +118,8 @@ class Tester:
                 match += 1
             elif r2 == 3 and r1 == 4:
                 match += 1
-        return (match, n, match/n)
+            if r1 < 3 and r2 < 3:
+                direction += 1
+            elif r1 > 4 and r2 > 4:
+                direction += 1
+        return (match, n, match/n, direction, direction/n)
