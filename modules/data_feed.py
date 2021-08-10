@@ -112,7 +112,7 @@ class PrepareData():
             stds.append(recieved[2])
         return (test_data, categorical, stds)
 
-    def mass_hacking(self, tick, _from=0, _to=None, step=5, horizon=42, width=200):
+    def mass_hacking(self, tick, _from=0, _to=None, step=5, horizon=84, width=200):
         '''
         We use different assets simultaniously, to make the hacking ethical!!!
         tick, int, should change in every use to fetch new data;
@@ -134,7 +134,7 @@ class PrepareData():
             start = tick*(step+horizon+1)
             result = self.make_graph(key, start=start, step=step,
                                      horizon=horizon, width=width)
-            if not result or result[0].shape != (201, 85):
+            if not result or result[0].shape != (width+1, horizon+1):
                 continue
             test_data.append(result[0])
             categorical.append(result[1])

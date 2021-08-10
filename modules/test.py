@@ -28,9 +28,11 @@ class Tester:
     def __init__(self, vis_fin_model: str,
                  data_csv: str,
                  days_to_test: int = 5,
+                 skip: int = 0,
                  index_col: str or None = None) -> None:
         self.model = keras.models.load_model(vis_fin_model)
         self.test_data = pd.read_csv(data_csv, index_col=index_col)
+        self.skip = skip
         # for five days
         self.graph_makers = [_SubPrepareData(
             self.test_data.iloc[i:]) for i in range(days_to_test)]
@@ -50,7 +52,7 @@ class Tester:
             expected = []
             st_devs = []
             for key in graph_maker.keys:
-                grapth_tup = graph_maker.make_graph(key)
+                grapth_tup = graph_maker.make_graph(key, start=self.skip)
                 if grapth_tup:
                     graph.append(grapth_tup[0])
                     expected.append(grapth_tup[1])
