@@ -21,10 +21,9 @@ class PrepareData():
             data = self.full_data[key][start:start+step+horizon+1]
         except IndexError:
             return 'Finished'
-        data = data[step:]
         data = log(array(data[:-1])/array(data[1:]))[::-1]
-        data_categorical = sum(data[0:step])
-        base_categorical = std(data)
+        data_categorical = sum(data[-step:])
+        base_categorical = std(data[:-step])
         category = self._categorize(data_categorical, base_categorical)
         data = self._restructure(data, width)
         if not data:
