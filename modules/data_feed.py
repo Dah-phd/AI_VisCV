@@ -22,13 +22,11 @@ class PrepareData():
         except IndexError:
             return 'Finished'
         data = log(array(data[:-1])/array(data[1:]))[::-1]
-        data_categorical = sum(data[-step:])
         base_categorical = std(data[:-step])
-        category = self._categorize(data_categorical, base_categorical)
-        data = self._restructure(data, width)
+        category = self._categorize(sum(data[-step:]), base_categorical)
         if not data:
             return False
-        return (array(data), category, base_categorical)
+        return (self._restructure(data[:-step], width), category, base_categorical)
 
     def clean_db(self):
         for col in self.keys:
